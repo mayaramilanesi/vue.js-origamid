@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="./vue.js"></script>
+      <title>Vue.js</title>
+</head>
+<body>
+
+      <div id="app">
+            <ul>
+                  <li><a @click.prevent="puxarAcao" href="https://api.iextrading.com/1.0/stock/aapl/quote"></a>Apple</li>
+                  <li><a @click.prevent="puxarAcao" href="https://api.iextrading.com/1.0/stock/googl/quote"></a>Google</li>
+                  <li><a @click.prevent="puxarAcao" href="https://api.iextrading.com/1.0/stock/amzn/quote"></a>Amazon</li>
+                  <li><a @click.prevent="puxarAcao" href="https://api.iextrading.com/1.0/stock/ebay/quote"></a>Ebay</li>
+                  <li><a @click.prevent="puxarAcao" href="https://api.iextrading.com/1.0/stock/pypl/quote"></a>Paypal</li>
+            </ul>
+
+            <div>
+                  <p>Empresa: {{acao.companyName}}</p>
+                  <p>Valor de Mercado: {{acao.marketCap}}</p>
+                  <p>Valor da Ação: {{acao.lastestPrice}}</p>
+            </div>
+      </div>
+
+
+      <script>
+            const vm = new Vue({
+                  el: "#app",
+                  data: {
+                        acao: {},
+                  },
+                  methods: {
+                        puxarAcao(event) {
+                              consturl = event.currentTarget.href
+                              fetch(url)
+                              .then(r => r.json())
+                              .then(r => {
+                                    this.acao = r;
+                              })
+                        }
+                  }
+            })
+      </script>
+            
+<!--
+Utilizando API
+https://api.iextrading.com/1.0/stock/aapl/quote
+
+Adicione um evento de clique a cada <a> do html acima e previna o comportamento padrão.
+
+Faça o fetch dos dados do href ao click e mostre na
+interface o companyName, lastestPrice e marketCap
+-->
+
+
+</body>
+</html>
